@@ -3,7 +3,6 @@ import { loginUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  // --- State ---
   const [email, setEmail] = useState("test@test.com");
   const [password, setPassword] = useState("1234567890");
   const [error, setError] = useState(null);
@@ -12,7 +11,6 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // --- Logic ---
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -32,9 +30,7 @@ const Login = () => {
   };
 
   return (
-    // Main Container with Background
     <div className="min-h-screen relative bg-gray-900 flex items-center justify-center">
-      {/* Background Image & Dark Overlay */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -44,24 +40,18 @@ const Login = () => {
           backgroundPosition: "center",
         }}
       >
-        {/* Slightly darker overlay for better contrast with smaller elements */}
         <div className="absolute inset-0 bg-gray-900/75 mix-blend-multiply" />
       </div>
 
-      {/* Content Container (Split Layout) - Centered Vertically */}
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center h-full">
-        {/* LEFT SIDE: Welcome Text - Reduced size and padding */}
         <div className="lg:w-3/5 flex items-center justify-start p-8 lg:p-16">
           <h1 className="text-3xl lg:text-5xl font-bold text-white leading-tight drop-shadow-lg">
             Welcome to the <br /> Crowd Management System
           </h1>
         </div>
 
-        {/* RIGHT SIDE: Login Card - Centered and reduced size */}
         <div className="lg:w-2/5 flex items-center justify-center p-8">
-          {/* Changed max-w-md to max-w-sm for a narrower card */}
           <div className="w-full max-w-sm bg-white rounded-2xl shadow-2xl overflow-hidden">
-            {/* Card Header - Reduced padding to p-6 */}
             <div className="bg-teal-700 p-6 flex flex-col items-center justify-center">
               <h1 className="text-2xl font-bold text-white flex items-center gap-3">
                 <svg
@@ -78,10 +68,8 @@ const Login = () => {
               </p>
             </div>
 
-            {/* Card Body - Reduced padding to p-6 */}
             <div className="p-6">
               <form onSubmit={handleLogin} className="space-y-4">
-                {/* Email Input */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1 pl-1">
                     Log In <span className="text-red-500">*</span>
@@ -91,13 +79,11 @@ const Login = () => {
                     placeholder="Email or Login ID"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    // Reduced padding-y from py-3 to py-2.5
                     className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
                     required
                   />
                 </div>
 
-                {/* Password Input */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1 pl-1">
                     Password <span className="text-red-500">*</span>
@@ -108,7 +94,6 @@ const Login = () => {
                       placeholder="Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      // Reduced padding-y from py-3 to py-2.5
                       className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all pr-12"
                       required
                     />
@@ -156,7 +141,6 @@ const Login = () => {
                   </div>
                 </div>
 
-                {/* Error Message */}
                 {error && (
                   <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg p-2.5 flex items-center gap-2">
                     <svg
@@ -170,7 +154,6 @@ const Login = () => {
                   </div>
                 )}
 
-                {/* Submit Button - Reduced padding-y */}
                 <button
                   type="submit"
                   disabled={loading}

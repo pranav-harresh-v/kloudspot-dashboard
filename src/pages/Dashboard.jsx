@@ -5,7 +5,6 @@ import { useLiveOccupancy } from "../hooks/useLiveOccupancy";
 import { FIXED_HOURS } from "../config/chartConfig";
 import FigmaCard from "../components/FigmaCard";
 import DemographicsChart from "../components/DemographicsChart";
-// 1. IMPORT THE NEW CONTAINER
 import ChartContainer from "../components/ChartContainer";
 
 const Dashboard = () => {
@@ -14,7 +13,6 @@ const Dashboard = () => {
     useDashboardData(selectedSite);
   useLiveOccupancy(selectedSite, setMetrics);
 
-  // Gradient Helper
   const createGradient = (context) => {
     const ctx = context.chart.ctx;
     const gradient = ctx.createLinearGradient(
@@ -28,7 +26,6 @@ const Dashboard = () => {
     return gradient;
   };
 
-  // Data 1: Occupancy (Needs Gradient)
   const occupancyChartData = {
     labels: FIXED_HOURS,
     datasets: [
@@ -36,7 +33,6 @@ const Dashboard = () => {
         label: "Occupancy",
         data: charts.occupancyData,
         fill: true,
-        // Apply gradient only when chart area is ready
         backgroundColor: (context) =>
           context.chart.chartArea ? createGradient(context) : null,
         borderColor: "#2dd4bf",
@@ -48,7 +44,6 @@ const Dashboard = () => {
     ],
   };
 
-  // Data 2: Demographics (No Gradient, Solid Fill)
   const demoLineData = {
     labels: FIXED_HOURS,
     datasets: [
@@ -80,7 +75,6 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-8 font-sans">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
           Overview
@@ -104,7 +98,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Occupancy Section */}
       <div className="space-y-4">
         <h2 className="text-lg font-bold text-gray-700">Occupancy</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -133,7 +126,6 @@ const Dashboard = () => {
           />
         </div>
 
-        {/* REUSED COMPONENT: Passes 'id' for the Live Marker */}
         <ChartContainer
           title="Overall Occupancy"
           data={occupancyChartData}
@@ -141,7 +133,6 @@ const Dashboard = () => {
         />
       </div>
 
-      {/* Demographics Section */}
       <div className="space-y-4">
         <h2 className="text-lg font-bold text-gray-700">Demographics</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -153,7 +144,6 @@ const Dashboard = () => {
           </div>
 
           <div className="col-span-1 lg:col-span-2">
-            {/* REUSED COMPONENT: Passes 'children' for the Legend */}
             <ChartContainer title="Demographics Analysis" data={demoLineData}>
               <div className="flex gap-4">
                 <span className="flex items-center gap-1 text-xs font-medium text-gray-400">

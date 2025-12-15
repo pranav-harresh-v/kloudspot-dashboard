@@ -36,22 +36,18 @@ export const useDashboardData = (selectedSite) => {
         const yStart = start - 86400000;
         const yEnd = end - 86400000;
 
-        // --- THE FIX: Fire ALL 6 requests at once ---
         const [occRes, footRes, dwellRes, demoRes, yFootRes, yDwellRes] =
           await Promise.all([
-            // Today's Data
             getOccupancy(start, end, selectedSite.siteId),
             getFootfall(start, end, selectedSite.siteId),
             getDwellTime(start, end, selectedSite.siteId),
             getDemographics(start, end, selectedSite.siteId),
-            // Yesterday's Data (Now running in parallel with today!)
             getFootfall(yStart, yEnd, selectedSite.siteId),
             getDwellTime(yStart, yEnd, selectedSite.siteId),
           ]);
 
         if (!isMounted) return;
 
-        // --- Helper: Map Buckets to Fixed Axis ---
         const mapToFixedAxis = (buckets, valueKey) => {
           return FIXED_HOURS.map((hourLabel) => {
             const hourPrefix = hourLabel.split(":")[0];
@@ -66,7 +62,6 @@ export const useDashboardData = (selectedSite) => {
           });
         };
 
-        // --- Process Data ---
         const occData = mapToFixedAxis(occRes.data?.buckets || [], "avg");
         const maleData = mapToFixedAxis(demoRes.data?.buckets || [], "male");
         const femaleData = mapToFixedAxis(
@@ -74,7 +69,6 @@ export const useDashboardData = (selectedSite) => {
           "female"
         );
 
-        // Donut Totals
         let totalMale = 0,
           totalFemale = 0;
         (demoRes.data?.buckets || []).forEach((b) => {
@@ -87,7 +81,6 @@ export const useDashboardData = (selectedSite) => {
         const femalePct =
           grandTotal > 0 ? (totalFemale / grandTotal) * 100 : 50;
 
-        // Trends
         const todayFoot = footRes.data?.footfall || 0;
         const yestFoot = yFootRes.data?.footfall || 0;
         const footTrend =

@@ -121,7 +121,6 @@ export const gridOptions = {
     y: {
       beginAtZero: true,
       suggestedMax: 250,
-      // 1. L-Shape: Display the border for the Y axis (Left line)
       border: {
         display: true,
         color: "#e2e8f0",
@@ -130,10 +129,10 @@ export const gridOptions = {
       grid: {
         display: true,
         color: "#e2e8f0",
-        borderDash: [4, 4], // Dotted grid
-        drawBorder: false, // Don't draw the heavy border again
+        borderDash: [4, 4],
+        drawBorder: false,
         tickLength: 0,
-        z: 1, // <--- CRITICAL: Draws grid ON TOP of the chart fill
+        z: 1,
       },
       ticks: {
         font: commonFont,
@@ -149,7 +148,6 @@ export const gridOptions = {
       },
     },
     x: {
-      // 2. L-Shape: Display the border for the X axis (Bottom line)
       border: {
         display: true,
         color: "#e2e8f0",
@@ -161,7 +159,7 @@ export const gridOptions = {
         borderDash: [4, 4],
         drawBorder: false,
         tickLength: 0,
-        z: 1, // <--- CRITICAL: Draws grid ON TOP of the chart fill
+        z: 1,
       },
       ticks: {
         font: commonFont,

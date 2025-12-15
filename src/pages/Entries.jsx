@@ -8,10 +8,9 @@ const Entries = () => {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Pagination State
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const PAGE_SIZE = 8; // Fits nicely on screen like Figma
+  const PAGE_SIZE = 8;
 
   useEffect(() => {
     if (!selectedSite?.siteId) return;
@@ -19,12 +18,10 @@ const Entries = () => {
     const fetchEntries = async () => {
       setLoading(true);
       try {
-        // Calculate Today's Range
         const now = new Date();
         const start = new Date(now.setHours(0, 0, 0, 0)).getTime();
         const end = new Date(now.setHours(23, 59, 59, 999)).getTime();
 
-        // Call API
         const response = await getEntries(
           start,
           end,
@@ -43,9 +40,8 @@ const Entries = () => {
     };
 
     fetchEntries();
-  }, [selectedSite, page]); // Re-runs when you click Next/Prev
+  }, [selectedSite, page]);
 
-  // Format Time Helper
   const formatTime = (utcVal) => {
     if (!utcVal) return "--";
     return new Date(utcVal).toLocaleTimeString([], {
@@ -54,12 +50,9 @@ const Entries = () => {
     });
   };
 
-  // --- PAGINATION COMPONENT (Matches Figma Style) ---
   const renderPagination = () => {
-    // Logic to show: 1 2 3 ... LastPage
     const pages = [];
 
-    // Always show Page 1
     pages.push(
       <PageButton
         key={1}
@@ -69,7 +62,6 @@ const Entries = () => {
       />
     );
 
-    // Logic for middle pages
     if (page > 3)
       pages.push(
         <span key="dots1" className="px-2 text-gray-400">
@@ -77,7 +69,6 @@ const Entries = () => {
         </span>
       );
 
-    // Show current page neighbors (e.g. if on 5, show 4 5 6)
     for (
       let i = Math.max(2, page - 1);
       i <= Math.min(totalPages - 1, page + 1);
@@ -100,7 +91,6 @@ const Entries = () => {
         </span>
       );
 
-    // Always show Last Page (if more than 1 page)
     if (totalPages > 1) {
       pages.push(
         <PageButton
@@ -117,14 +107,11 @@ const Entries = () => {
 
   return (
     <div className="space-y-6 font-sans">
-      {/* Header */}
-      {/* 1. Header with updated Calendar Icon */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
           Overview
         </h1>
 
-        {/* Updated "Today" button with correct SVG */}
         <div className="bg-white border px-4 py-2 rounded-lg shadow-sm text-sm font-medium text-gray-600 flex items-center gap-2 cursor-pointer hover:border-teal-500 transition-colors">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -144,9 +131,7 @@ const Entries = () => {
         </div>
       </div>
 
-      {/* Table Card */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col min-h-[500px]">
-        {/* Table Header */}
         <div className="overflow-x-auto flex-1">
           <table className="w-full text-left text-sm text-gray-600">
             <thead className="bg-gray-100/50 border-b border-gray-200 uppercase font-semibold text-xs tracking-wider text-gray-500">
@@ -177,7 +162,6 @@ const Entries = () => {
                     key={person.personId}
                     className="hover:bg-gray-50 transition-colors"
                   >
-                    {/* Name + Avatar */}
                     <td className="px-6 py-4 font-medium text-gray-900 flex items-center gap-3">
                       <img
                         src={`https://ui-avatars.com/api/?name=${person.personName}&background=random&color=fff&size=128`}
@@ -187,7 +171,6 @@ const Entries = () => {
                       {person.personName}
                     </td>
 
-                    {/* Fake Gender Logic (Matches Figma Visuals until API is fixed) */}
                     <td className="px-6 py-4 text-gray-500">
                       {person.personName.length % 2 === 0 ? "Female" : "Male"}
                     </td>
@@ -210,7 +193,6 @@ const Entries = () => {
           </table>
         </div>
 
-        {/* --- FIGMA STYLE PAGINATION --- */}
         <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-center gap-2 select-none">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
@@ -235,7 +217,6 @@ const Entries = () => {
   );
 };
 
-// Small Sub-Component for the Page Numbers
 const PageButton = ({ num, active, onClick }) => (
   <button
     onClick={onClick}

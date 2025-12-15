@@ -1,16 +1,81 @@
-# React + Vite
+# Kloudspot Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive crowd analytics dashboard built with **React** and **Vite**. This application visualizes live occupancy data, footfall trends, and demographic breakdowns using interactive charts and a clean, Figma-accurate UI.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Live Occupancy Tracking:** Real-time data simulation with "Live" status indicators.
+- **Interactive Charts:**
+  - Gradient-filled Line Charts for occupancy trends (using Chart.js).
+  - Custom Doughnut Charts for demographic analysis with rounded segments.
+- **Responsive Design:** Fully responsive sidebar navigation and grid layouts using Tailwind CSS.
+- **Modular Architecture:** Reusable chart components (`ChartContainer`) and custom hooks for data fetching.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **Framework:** [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Charts:** [Chart.js](https://www.chartjs.org/) & [react-chartjs-2](https://react-chartjs-2.js.org/)
+- **Routing:** React Router DOM
+- **Font:** Inter (Google Fonts)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📦 Getting Started
+
+### Prerequisites
+
+Ensure you have **Node.js** (v16 or higher) installed on your machine.
+
+### 1. Clone the Repository
+
+```bash
+git clone [https://github.com/yourusername/kloudspot-dashboard.git](https://github.com/yourusername/kloudspot-dashboard.git)
+cd kloudspot-dashboard
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Run Development Server
+
+```bash
+npm run dev
+```
+
+The app will open at `http://localhost:5173`.
+
+## 📂 Project Structure
+
+```text
+src/
+├── components/       # Reusable UI components (FigmaCard, DemographicsChart, ChartContainer)
+├── config/           # Chart.js configurations (Grid options, Fonts)
+├── context/          # Global state management (SiteContext)
+├── hooks/            # Custom hooks (useDashboardData, useLiveOccupancy)
+├── pages/            # Main page views (Dashboard)
+└── Layout.jsx        # Main layout with Sidebar and Header
+```
+
+## 🚀 Deployment
+
+### Deploying to Vercel (Recommended)
+
+1.  Push your code to a GitHub repository.
+2.  Import the project into Vercel.
+3.  Vercel will auto-detect Vite and deploy.
+
+**Important:** To prevent 404 errors on refresh when using React Router, ensure you have a `vercel.json` file in your root directory with the following content:
+
+```json
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
+```
+
+## 🛡️ License
+
+This project is for educational/demonstration purposes.

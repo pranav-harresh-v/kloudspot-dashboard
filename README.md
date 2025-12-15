@@ -6,8 +6,6 @@ A modern, responsive crowd analytics dashboard built with **React** and **Vite**
 
 - **Live Occupancy Tracking:** Real-time data simulation with "Live" status indicators.
 - **Interactive Charts:**
-  - Gradient-filled Line Charts for occupancy trends (using Chart.js).
-  - Custom Doughnut Charts for demographic analysis with rounded segments.
 - **Responsive Design:** Fully responsive sidebar navigation and grid layouts using Tailwind CSS.
 - **Modular Architecture:** Reusable chart components (`ChartContainer`) and custom hooks for data fetching.
 
@@ -30,7 +28,7 @@ Ensure you have **Node.js** (v16 or higher) installed on your machine.
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/yourusername/kloudspot-dashboard.git](https://github.com/yourusername/kloudspot-dashboard.git)
+git clone https://github.com/pranav-harresh-v/kloudspot-dashboard.git
 cd kloudspot-dashboard
 ```
 

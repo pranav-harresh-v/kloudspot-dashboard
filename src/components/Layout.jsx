@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useSite } from "../context/SiteContext";
+import logo from "../assets/logo.png";
 
 const Layout = () => {
   const { sites, selectedSite, setSelectedSite } = useSite();
@@ -16,6 +17,7 @@ const Layout = () => {
   };
 
   useEffect(() => setIsMobileOpen(false), [location.pathname]);
+
   const toggleSidebar = () =>
     window.innerWidth >= 1024
       ? setIsDesktopOpen(!isDesktopOpen)
@@ -25,7 +27,6 @@ const Layout = () => {
     {
       name: "Overview",
       path: "/dashboard",
-      // FIGMA MATCH: Home Icon
       icon: (
         <svg
           className="w-5 h-5"
@@ -45,7 +46,6 @@ const Layout = () => {
     {
       name: "Crowd Entries",
       path: "/entries",
-      // FIGMA MATCH: Box with Arrow (External/Entry style)
       icon: (
         <svg
           className="w-5 h-5"
@@ -81,28 +81,34 @@ const Layout = () => {
           isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         } ${isDesktopOpen ? "lg:w-64" : "lg:w-0 lg:overflow-hidden"}`}
       >
-        {/* LOGO SECTION */}
-        <div className="p-6 flex items-center gap-3 border-b border-[#1a3d3d] whitespace-nowrap overflow-hidden">
-          {/* FIGMA MATCH: Cloud Logo */}
-          <svg
-            className="w-8 h-8 text-white shrink-0"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
+        <div className="h-16 flex items-center justify-between px-6 border-b border-[#1a3d3d] shrink-0">
+          <img
+            src={logo}
+            alt="Kloudspot"
+            className="h-20 w-auto object-contain"
+          />
+
+          <button
+            onClick={toggleSidebar}
+            className="text-gray-400 hover:text-white transition-colors p-1"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-            />
-          </svg>
-          <span className="text-xl font-bold tracking-wide text-white">
-            kloudspot
-          </span>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
         </div>
 
-        <nav className="flex-1 px-4 space-y-2 mt-6 overflow-hidden">
+        <nav className="flex-1 px-4 space-y-2 mt-6 overflow-hidden overflow-y-auto">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -119,7 +125,7 @@ const Layout = () => {
           ))}
         </nav>
 
-        <div className="p-4 mt-auto border-t border-[#1a3d3d] overflow-hidden">
+        <div className="p-4 mt-auto border-t border-[#1a3d3d] overflow-hidden shrink-0">
           <button
             onClick={handleLogout}
             className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-red-900/30 w-full rounded-lg transition-colors whitespace-nowrap"
@@ -143,11 +149,13 @@ const Layout = () => {
       </aside>
 
       <div className="flex-1 flex flex-col h-full overflow-hidden transition-all duration-300">
-        <header className="bg-white h-16 border-b border-gray-200 flex items-center justify-between px-4 lg:px-8 shadow-sm z-10">
+        <header className="bg-white h-16 border-b border-gray-200 flex items-center justify-between px-4 lg:px-8 shadow-sm z-10 shrink-0">
           <div className="flex items-center gap-4">
             <button
               onClick={toggleSidebar}
-              className="text-gray-500 hover:text-gray-700 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors"
+              className={`text-gray-500 hover:text-gray-700 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors ${
+                isDesktopOpen ? "lg:hidden" : ""
+              }`}
             >
               <svg
                 className="w-6 h-6"
@@ -163,6 +171,7 @@ const Layout = () => {
                 />
               </svg>
             </button>
+
             <div className="flex items-center gap-4">
               <span className="hidden md:inline font-bold text-gray-700 text-lg">
                 Crowd Solutions
@@ -172,7 +181,6 @@ const Layout = () => {
               </span>
             </div>
 
-            {/* AUTO-RESIZING SELECTOR */}
             <div className="relative group">
               <div className="flex items-center gap-2 bg-white border border-gray-300 rounded-md px-3 py-1.5 group-hover:border-gray-400 group-focus-within:border-teal-600 transition-all">
                 <svg
@@ -256,6 +264,7 @@ const Layout = () => {
             </div>
           </div>
         </header>
+
         <main className="flex-1 overflow-y-auto p-4 lg:p-8">
           <Outlet />
         </main>
@@ -263,4 +272,5 @@ const Layout = () => {
     </div>
   );
 };
+
 export default Layout;
